@@ -6,6 +6,7 @@
 " :vmap - visual mode
 " :vnoremap - visual mode non-recursive
 
+runtime bundle/vim-pathogen/autoload/pathogen.vim
 call pathogen#infect()
 
 set number
