@@ -1,5 +1,5 @@
-source ~/.git-prompt.sh
-source ~/.git-completion.bash
+source /usr/local/Cellar/git/1.8.1/etc/bash_completion.d/git-prompt.sh
+source /usr/local/Cellar/git/1.8.1/etc/bash_completion.d/git-completion.bash
 
 PS1='\! \e[0;36m\w/\e[m\e[0;33m$(__git_ps1 " (%s)")\e[m \e[0;35m⌘\e[m '
 
@@ -7,7 +7,6 @@ if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 # Use Custom VIM build
 export EDITOR="/usr/local/bin/vim"
-alias vim=$EDITOR
 alias vi=$EDITOR
 
 alias ls='ls -G'
@@ -22,10 +21,11 @@ alias bl="bundle list"
 alias bp="bundle package"
 alias bu="bundle update"
 
-alias rspec="bundle exec rspec"
-alias rake="bundle exec rake"
-alias cap="bundle exec cap"
-alias foreman="bundle exec foreman"
+bundled="rspec rake cap foreman"
+for cmd in $bundled
+do
+  alias $cmd="bundle exec $cmd"
+done
 
 export PATH="/usr/local/bin:${PATH}"
 export CDPATH="~/code"
