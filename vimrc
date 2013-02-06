@@ -17,14 +17,53 @@ set hidden
 ""
 "" Colors and Theme
 ""
-syntax on
+syntax enable
 set background=dark
 colorscheme solarized
+
+let &t_SI = "\<Esc>]50;CursorShape=1\x7" " works in iterm2
+let &t_EI = "\<Esc>]50;CursorShape=0\x7" " works in iterm2
+set laststatus=2 "always display status bar
+
+""
+"" Mapping
+""
+" changing tabs with number keys
+map <leader>1 1gt
+map <leader>2 2gt
+map <leader>3 3gt
+map <leader>4 4gt
+map <leader>5 5gt
+map <leader>6 6gt
+map <leader>7 7gt
+map <leader>8 8gt
+map <leader>9 9gt
+map <leader>[ gT
+map <leader>] gt
+map <leader>0 :tablast<CR>
+
+map <leader>s :w\|:!bundle exec rspec --color %<cr>
+
+map <d-k> \\\
+imap <d-k> \\\
+
+nmap <leader>r :!powder restart<CR>
+nmap <leader>l :set list!<CR>
+nmap <leader>v "*p
+
+nnoremap <silent> <leader>t :CommandT<CR>
+nnoremap <silent> <leader>b :CommandTBuffer<CR>
+
+
+""
+"" Tags
+""
+map <F5> :!/usr/local/bin/ctags --languages=Ruby -R<CR>
 
 ""
 "" Status Line
 ""
-set statusline=%<[%n]%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
+"" set statusline=%<[%n]%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 
 ""
 "" Tabbing
@@ -40,6 +79,8 @@ set backspace=indent,eol,start
 ""
 let g:netrw_list_hide='^\..*'
 
+"" powder
+
 ""
 "" windows
 ""
@@ -47,7 +88,6 @@ let g:netrw_list_hide='^\..*'
 "set winminwidth=80
 
 " from http://vimcasts.org/episodes/show-invisibles/
-nmap <leader>l :set list!<CR>
 set listchars=tab:▸\ ,trail:·,eol:¬
 
 nmap <leader>f ggVG<CR>
@@ -63,9 +103,10 @@ set incsearch   " search immediately as you type
 set ignorecase  " searches are case insensitive...
 set smartcase   " ... un$$ss they contain at least one capital letter
 
+let g:ackprg = 'ag --nogroup --nocolor --column' "use silver searcher
+
 " turn off highlights for current search only, or type :noh
 nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
-
 
 filetype plugin on
 filetype plugin indent on
@@ -78,7 +119,9 @@ set backupdir=~/.vim/_backup/    " where to put backup files.
 set directory=~/.vim/_swap/      " where to put swap files.
 
 " Plugin Settings
-" nmap <silent> <C-D> :NERDTreeToggle<CR>
+set wildignore+=*/tmp/*
+set wildignore+=*/public/spree/*
+set wildignore+=*/public/spraycan/*
 
 let g:ctrlp_working_path_mode = 2
 let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$'
@@ -88,4 +131,9 @@ autocmd BufNewFile,BufRead *.ejs set filetype=html
 autocmd BufNewFile,BufRead *.erb set filetype=html
 
 " set up for markdown
-" autocmd FileType make setlocal noexpandtab
+autocmd FileType text,markdown setlocal textwidth=78
+autocmd FileType text,markdown setlocal noexpandtab
+
+""
+"" Rails
+""
