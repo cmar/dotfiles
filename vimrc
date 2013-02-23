@@ -51,10 +51,7 @@ nmap <leader>r :!powder restart<CR>
 nmap <leader>l :set list!<CR>
 nmap <leader>v "*p
 
-nnoremap <silent> <leader>t :CommandT<CR>
-nnoremap <silent> <leader>b :CommandTBuffer<CR>
-
-
+nmap <c-b> :CtrlPBuffer<CR>
 ""
 "" Tags
 ""
