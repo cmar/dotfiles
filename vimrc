@@ -100,8 +100,6 @@ set incsearch   " search immediately as you type
 set ignorecase  " searches are case insensitive...
 set smartcase   " ... un$$ss they contain at least one capital letter
 
-let g:ackprg = 'ag --nogroup --nocolor --column' "use silver searcher
-
 " turn off highlights for current search only, or type :noh
 nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 
