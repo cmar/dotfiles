@@ -1,9 +1,10 @@
-source /usr/local/Cellar/git/1.8.1/etc/bash_completion.d/git-prompt.sh
-source /usr/local/Cellar/git/1.8.1/etc/bash_completion.d/git-completion.bash
+source ~/.bashrc
+source /usr/local/etc/bash_completion.d/git-prompt.sh
+source /usr/local/etc/bash_completion.d/git-completion.bash
 
 PS1='\! \e[0;36m\w/\e[m\e[0;33m$(__git_ps1 " (%s)")\e[m \e[0;35m⌘\e[m '
 
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+#if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 # Use Custom VIM build
 export EDITOR="/usr/local/bin/vim"
@@ -20,6 +21,7 @@ alias bi="bundle install"
 alias bl="bundle list"
 alias bp="bundle package"
 alias bu="bundle update"
+alias bs="bundle show --paths | xargs ag"
 
 bundled="rspec rake cap foreman"
 for cmd in $bundled
@@ -28,6 +30,6 @@ do
 done
 
 export PATH="/usr/local/bin:${PATH}"
-export CDPATH="~/code"
+export CDPATH="$CDPATH:~/code"
 
 # ssh-add /Users/cmar/.ssh/heroku_rsa > /dev/null 2>&1
