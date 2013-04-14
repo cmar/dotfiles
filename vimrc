@@ -6,13 +6,20 @@
 " :vmap - visual mode
 " :vnoremap - visual mode non-recursive
 
-runtime bundle/vim-pathogen/autoload/pathogen.vim
-call pathogen#infect()
-
 set number
 set encoding=utf-8
 set ruler
 set hidden
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+Bundle 'gmarik/vundle'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'thoughtbot/vim-rspec'
+Bundle 'kien/ctrlp.vim'
+Bundle 'rking/ag.vim'
+Bundle 'tpope/vim-commentary'
+Bundle 'kchmck/vim-coffee-script'
 
 ""
 "" Colors and Theme
