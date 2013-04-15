@@ -1,6 +1,8 @@
 source ~/.bashrc
 source /usr/local/etc/bash_completion.d/git-prompt.sh
 source /usr/local/etc/bash_completion.d/git-completion.bash
+source /usr/local/etc/bash_completion.d/brew_bash_completion.sh
+source /usr/local/etc/bash_completion.d/tmux
 
 PS1='\! \e[0;36m\w/\e[m\e[0;33m$(__git_ps1 " (%s)")\e[m \e[0;35m⌘\e[m '
 
@@ -14,6 +16,8 @@ alias ls='ls -G'
 
 alias gs='git s'
 alias gl='git l'
+#git checkout -t
+#git branch -u upstream/foo
 alias sha='git rev-parse HEAD | tr -d "\n" | pbcopy'
 
 alias be="bundle exec"
