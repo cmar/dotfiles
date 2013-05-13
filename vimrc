@@ -15,22 +15,35 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 Bundle 'gmarik/vundle'
 Bundle 'altercation/vim-colors-solarized'
-Bundle 'thoughtbot/vim-rspec'
 Bundle 'kien/ctrlp.vim'
 Bundle 'rking/ag.vim'
 Bundle 'tpope/vim-commentary'
+Bundle 'tpope/vim-dispatch'
+Bundle 'thoughtbot/vim-rspec'
 Bundle 'kchmck/vim-coffee-script'
+Bundle 'nanotech/jellybeans.vim'
+
 
 ""
 "" Colors and Theme
 ""
 syntax enable
-set background=dark
-colorscheme solarized
+" set background=dark
+" colorscheme solarized
+colorscheme jellybeans
 
 let &t_SI = "\<Esc>]50;CursorShape=1\x7" " works in iterm2
 let &t_EI = "\<Esc>]50;CursorShape=0\x7" " works in iterm2
 set laststatus=2 "always display status bar
+:set statusline=[%n]       " Buffer Number
+:set statusline+=\         " Separator
+:set statusline+=%f        " Path to the file
+:set statusline+=%=        " Switch to the right side
+:set statusline+=%l        " Current line
+:set statusline+=/         " Separator
+:set statusline+=%L        " Total lines
+:set statusline+=\         " Separator
+:set statusline+=[%Y]      " File Type
 
 ""
 "" Mapping
@@ -49,13 +62,18 @@ map <leader>[ gT
 map <leader>] gt
 map <leader>0 :tablast<CR>
 
-map <leader>s :w\|:!bundle exec rspec --color %<cr>
+" map <leader>s :w\|:!bundle exec rspec --color %<cr>
+let g:rspec_command = ":w\|:!bundle exec rspec --color {spec}"
+" let g:rspec_command = "Dispatch bundle exec rspec --color {spec}"
+map <Leader>t :call RunCurrentSpecFile()<CR>
+map <Leader>s :call RunNearestSpec()<CR>
+map <Leader>l :call RunLastSpec()<CR>
 
 map <d-k> \\\
 imap <d-k> \\\
 
 nmap <leader>r :!powder restart<CR>
-nmap <leader>l :set list!<CR>
+" nmap <leader>l :set list!<CR>
 nmap <leader>v "*p
 
 nmap <c-b> :CtrlPBuffer<CR>
