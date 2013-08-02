@@ -14,36 +14,38 @@ set hidden
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 Bundle 'gmarik/vundle'
-Bundle 'altercation/vim-colors-solarized'
 Bundle 'kien/ctrlp.vim'
 Bundle 'rking/ag.vim'
 Bundle 'tpope/vim-commentary'
-Bundle 'tpope/vim-dispatch'
+Bundle 'tpope/vim-fugitive'
 Bundle 'thoughtbot/vim-rspec'
 Bundle 'kchmck/vim-coffee-script'
-Bundle 'nanotech/jellybeans.vim'
-
 
 ""
 "" Colors and Theme
 ""
 syntax enable
-" set background=dark
-" colorscheme solarized
-colorscheme jellybeans
+set background=dark
+colorscheme base16-default
 
 let &t_SI = "\<Esc>]50;CursorShape=1\x7" " works in iterm2
 let &t_EI = "\<Esc>]50;CursorShape=0\x7" " works in iterm2
 set laststatus=2 "always display status bar
-:set statusline=[%n]       " Buffer Number
-:set statusline+=\         " Separator
-:set statusline+=%f        " Path to the file
-:set statusline+=%=        " Switch to the right side
-:set statusline+=%l        " Current line
-:set statusline+=/         " Separator
-:set statusline+=%L        " Total lines
-:set statusline+=\         " Separator
-:set statusline+=[%Y]      " File Type
+
+set statusline=%<%f\ %{fugitive#statusline()}\ %h%m%r%=%-14.(%l,%c%V%)\ %P
+
+" %<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
+" :set statusline=[%n]       " Buffer Number
+" :set statusline+=\         " Separator
+" :set statusline+=%f%r      " Path to the file
+" :set statusline+=%{fugitive#statusline()}
+" :set statusline+=%m
+" :set statusline+=%=        " Switch to the right side
+" :set statusline+=%l        " Current line
+" :set statusline+=/         " Separator
+" :set statusline+=%L        " Total lines
+" :set statusline+=\         " Separator
+" :set statusline+=[%Y]      " File Type
 
 ""
 "" Mapping
@@ -62,12 +64,13 @@ map <leader>[ gT
 map <leader>] gt
 map <leader>0 :tablast<CR>
 
-" map <leader>s :w\|:!bundle exec rspec --color %<cr>
 let g:rspec_command = ":w\|:!bundle exec rspec --color {spec}"
 " let g:rspec_command = "Dispatch bundle exec rspec --color {spec}"
+"
 map <Leader>t :call RunCurrentSpecFile()<CR>
 map <Leader>s :call RunNearestSpec()<CR>
 map <Leader>l :call RunLastSpec()<CR>
+" map <leader>s :w\|:!bundle exec rspec --color %<cr>
 
 map <d-k> \\\
 imap <d-k> \\\
@@ -99,9 +102,9 @@ set backspace=indent,eol,start
 ""
 "" netrw
 ""
-let g:netrw_list_hide='^\..*'
-
-"" powder
+let g:netrw_list_hide= '\(^\|\s\s\)\zs\.\S\+'
+" let g:netrw_list_hide='^\..*'
+"
 
 ""
 "" windows
@@ -125,8 +128,20 @@ set incsearch   " search immediately as you type
 set ignorecase  " searches are case insensitive...
 set smartcase   " ... un$$ss they contain at least one capital letter
 
+" if executable("ag")
+"   set Grepprg=ag\ --nogroup\ --nocolor
+" endif
+
 " turn off highlights for current search only, or type :noh
 nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
+
+" haste paste
+nnoremap <silent> <leader>h :%w ! haste \| pbcopy<CR>
+vnoremap <silent> <leader>h :w ! haste \| pbcopy<CR>
+
+" splits
+set splitbelow
+set splitright
 
 filetype plugin on
 filetype plugin indent on
@@ -149,6 +164,7 @@ let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$'
 " File Types
 autocmd BufNewFile,BufRead *.ejs set filetype=html
 autocmd BufNewFile,BufRead *.erb set filetype=html
+autocmd BufNewFile,BufRead *.jbuilder set filetype=ruby
 
 " set up for markdown
 autocmd FileType text,markdown setlocal textwidth=78
@@ -156,4 +172,10 @@ autocmd FileType text,markdown setlocal noexpandtab
 
 ""
 "" Rails
-""
+
+"" ================ Persistent Undo ==================
+" Keep undo history across sessions, by storing in file.
+" Only works all the time.
+" silent !mkdir ~/.vim/backups > /dev/null 2>&1
+" set undodir=~/.vim/backups
+" set undofile"
