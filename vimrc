@@ -18,15 +18,39 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'rking/ag.vim'
 Bundle 'tpope/vim-commentary'
 Bundle 'tpope/vim-fugitive'
-Bundle 'thoughtbot/vim-rspec'
 Bundle 'kchmck/vim-coffee-script'
+Bundle 'Keithbsmiley/rspec.vim'
+" Bundle 'thoughtbot/vim-rspec'
+" Bundle 'tpope/vim-dispatch'
+Bundle 'benmills/vimux'
+Bundle 'jgdavey/vim-turbux'
 
+Bundle 'tomasr/molokai'
+
+nmap <silent> <leader>t <Plug>SendTestToTmux
+nmap <silent> <leader>s <Plug>SendFocusedTestToTmux
+nmap <silent> <leader>l :VimuxRunLastCommand<CR>
+nmap <silent> <leader>c :VimuxCloseRunner<CR>
+
+"VimuxCloseRunner let g:turbux_command_prefix = 'bundle exec'
+" let g:no_turbux_mappings = 1
+" nmap <leader>l :call SendTestToTmux(0)<CR>
+
+" map <leader>c :cclose<CR>
+
+" let g:rspec_command = ":w\|:!bundle exec rspec --color {spec}"
+"  let g:rspec_command = "Dispatch bundle exec rspec --color {spec}"
+" "
+" map <Leader>t :call RunCurrentSpecFile()<CR>
+" map <Leader>s :call RunNearestSpec()<CR>
+" map <Leader>l :call RunLastSpec()<CR>
+" map <leader>s :w\|:!bundle exec rspec --color %<cr>
+"
 ""
 "" Colors and Theme
 ""
 syntax enable
-set background=dark
-colorscheme base16-default
+colorscheme cmar
 
 let &t_SI = "\<Esc>]50;CursorShape=1\x7" " works in iterm2
 let &t_EI = "\<Esc>]50;CursorShape=0\x7" " works in iterm2
@@ -64,13 +88,6 @@ map <leader>[ gT
 map <leader>] gt
 map <leader>0 :tablast<CR>
 
-let g:rspec_command = ":w\|:!bundle exec rspec --color {spec}"
-" let g:rspec_command = "Dispatch bundle exec rspec --color {spec}"
-"
-map <Leader>t :call RunCurrentSpecFile()<CR>
-map <Leader>s :call RunNearestSpec()<CR>
-map <Leader>l :call RunLastSpec()<CR>
-" map <leader>s :w\|:!bundle exec rspec --color %<cr>
 
 map <d-k> \\\
 imap <d-k> \\\
@@ -179,3 +196,9 @@ autocmd FileType text,markdown setlocal noexpandtab
 " silent !mkdir ~/.vim/backups > /dev/null 2>&1
 " set undodir=~/.vim/backups
 " set undofile"
+
+" mapping to reveal syntax
+map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+      \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+      \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
