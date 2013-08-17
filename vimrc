@@ -87,6 +87,8 @@ map <leader>[ gT
 map <leader>] gt
 map <leader>0 :tablast<CR>
 
+nnoremap <leader>ev :vsplit $MYVIMRC<CR>
+noremap <leader>sv :source $MYVIMRC<CR>
 
 map <d-k> \\\
 imap <d-k> \\\
