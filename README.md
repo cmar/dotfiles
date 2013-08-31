@@ -6,6 +6,7 @@
 * I use vim in terminal mode.
 * I try to use standard Vim tools and avoid plugins (netrw vs NerdTree)
 * While I started with Janus for VIM, I've now stripped down to the basics
+* SPEED!
 
 # Tools
 * I use ack instead of grep

@@ -6,10 +6,32 @@
 " :vmap - visual mode
 " :vnoremap - visual mode non-recursive
 
+set nocompatible
 set number
 set encoding=utf-8
 set ruler
 set hidden
+
+set tabstop=2
+set shiftwidth=2
+set expandtab
+set nowrap
+set backspace=indent,eol,start
+
+set hlsearch    " highlight matches
+set incsearch   " search immediately as you type
+set ignorecase  " searches are case insensitive...
+set smartcase   " ... un$$ss they contain at least one capital letter
+
+set listchars=tab:▸\ ,trail:·,eol:¬
+
+set backupdir=~/.vim/_backup/    " where to put backup files.
+set directory=~/.vim/_swap/      " where to put swap files.
+
+runtime macros/matchit.vim
+
+" Vundle
+filetype off " must be off for Vundle
 
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
@@ -25,6 +47,8 @@ Bundle 'benmills/vimux'
 Bundle 'jgdavey/vim-turbux'
 
 Bundle 'tomasr/molokai'
+
+filetype plugin indent on
 
 nmap <silent> <leader>t <Plug>SendTestToTmux
 nmap <silent> <leader>s <Plug>SendFocusedTestToTmux
@@ -53,9 +77,9 @@ colorscheme cmar
 
 let &t_SI = "\<Esc>]50;CursorShape=1\x7" " works in iterm2
 let &t_EI = "\<Esc>]50;CursorShape=0\x7" " works in iterm2
-set laststatus=2 "always display status bar
 
-set statusline=%<%f\ %{fugitive#statusline()}\ %h%m%r%=%-14.(%l,%c%V%)\ %P
+set laststatus=2 "always display status bar
+set statusline=%<%f\ %{fugitive#statusline()}\ %h%m%r%=%-14.(%l,%c%V%)\ %P\ %y
 
 " %<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 " :set statusline=[%n]       " Buffer Number
@@ -89,6 +113,7 @@ map <leader>0 :tablast<CR>
 
 nnoremap <leader>ev :vsplit $MYVIMRC<CR>
 noremap <leader>sv :source $MYVIMRC<CR>
+nnoremap <leader>ec :vsplit g:colors_name<CR>
 
 map <d-k> \\\
 imap <d-k> \\\
@@ -111,40 +136,16 @@ map <F5> :!/usr/local/bin/ctags --languages=Ruby -R<CR>
 ""
 "" Tabbing
 ""
-set tabstop=2
-set shiftwidth=2
-set expandtab
-set nowrap
-set backspace=indent,eol,start
 
 ""
 "" netrw
 ""
 let g:netrw_list_hide= '\(^\|\s\s\)\zs\.\S\+'
 " let g:netrw_list_hide='^\..*'
-"
 
-""
-"" windows
-""
-"set winwidth=80
-"set winminwidth=80
-
-" from http://vimcasts.org/episodes/show-invisibles/
-set listchars=tab:▸\ ,trail:·,eol:¬
 
 nmap <leader>f ggVG<CR>
 
-" removes trailing white space from all files
-autocmd BufWritePre * :%s/\s\+$//e
-
-""
-"" Searching
-""
-set hlsearch    " highlight matches
-set incsearch   " search immediately as you type
-set ignorecase  " searches are case insensitive...
-set smartcase   " ... un$$ss they contain at least one capital letter
 
 " if executable("ag")
 "   set Grepprg=ag\ --nogroup\ --nocolor
@@ -157,19 +158,6 @@ nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 nnoremap <silent> <leader>h :%w ! haste \| pbcopy<CR>
 vnoremap <silent> <leader>h :w ! haste \| pbcopy<CR>
 
-" splits
-set splitbelow
-set splitright
-
-filetype plugin on
-filetype plugin indent on
-
-""
-"" Backup and swap files
-""
-
-set backupdir=~/.vim/_backup/    " where to put backup files.
-set directory=~/.vim/_swap/      " where to put swap files.
 
 " Plugin Settings
 set wildignore+=*/tmp/*
@@ -179,6 +167,10 @@ set wildignore+=*/public/spraycan/*
 let g:ctrlp_working_path_mode = 2
 let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$'
 
+" {{{
+" removes trailing white space from all files
+autocmd BufWritePre * :%s/\s\+$//e
+
 " File Types
 autocmd BufNewFile,BufRead *.ejs set filetype=html
 autocmd BufNewFile,BufRead *.erb set filetype=html
@@ -187,6 +179,7 @@ autocmd BufNewFile,BufRead *.jbuilder set filetype=ruby
 " set up for markdown
 autocmd FileType text,markdown setlocal textwidth=78
 autocmd FileType text,markdown setlocal noexpandtab
+" }}}
 
 ""
 "" Rails

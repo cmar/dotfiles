@@ -35,7 +35,7 @@ hi StatusLine     ctermfg=7 ctermbg=8 cterm=none
 
 hi CursorLineNr    term=bold ctermfg=10 ctermbg=11
 hi CursorColumn    term=reverse ctermbg=11
-hi CursorLine      term=underline ctermbg=11
+hi CursorLine      ctermbg=11 cterm=none
 
 " " hi Cursor
 " hi CursorLine   ctermbg=236   cterm=none
@@ -78,7 +78,7 @@ hi Type            ctermfg=4               cterm=none
 " hi Structure
 hi Typedef         ctermfg=4
 
-hi Special         ctermfg=2
+hi Special         ctermfg=3
 " hi SpecialChar
 hi Tag             ctermfg=1
 " hi Delimiter
@@ -88,7 +88,8 @@ hi Tag             ctermfg=1
 " hi Error
 
 hi Title           ctermfg=203
-hi Visual                      ctermbg=238
+
+hi Visual     ctermbg=238
 
 hi NonText         ctermfg=239
 hi SpecialKey      ctermfg=239
