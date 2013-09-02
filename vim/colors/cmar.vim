@@ -15,7 +15,7 @@ let g:colors_name="cmar"
 " let bright_red = 9 orange
 " let bright_green = 10
 " let bright_yellow = 11
-" let bright_blue = 12
+" let bright_blue = 12 Delimiter
 " let bright_magenta = 13
 " let bright_cyan = 14
 " let bright_white = 15 line number fg
@@ -81,7 +81,7 @@ hi Typedef         ctermfg=4
 hi Special         ctermfg=3
 " hi SpecialChar
 hi Tag             ctermfg=1
-" hi Delimiter
+hi Delimiter ctermfg=12
 " SpecialComment
 " Debug
 
