@@ -37,7 +37,6 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 Bundle 'gmarik/vundle'
 Bundle 'kien/ctrlp.vim'
-Bundle 'rking/ag.vim'
 Bundle 'tpope/vim-commentary'
 Bundle 'tpope/vim-fugitive'
 Bundle 'kchmck/vim-coffee-script'
@@ -47,6 +46,7 @@ Bundle 'benmills/vimux'
 Bundle 'jgdavey/vim-turbux'
 
 Bundle 'tomasr/molokai'
+Bundle 'altercation/vim-colors-solarized'
 
 filetype plugin indent on
 
@@ -54,6 +54,10 @@ nmap <silent> <leader>t <Plug>SendTestToTmux
 nmap <silent> <leader>s <Plug>SendFocusedTestToTmux
 nmap <silent> <leader>l :VimuxRunLastCommand<CR>
 nmap <silent> <leader>c :VimuxCloseRunner<CR>
+
+if executable("ag")
+  set grepprg=ag\ --nogroup\ --nocolor
+endif
 
 "VimuxCloseRunner let g:turbux_command_prefix = 'bundle exec'
 " let g:no_turbux_mappings = 1
@@ -73,10 +77,8 @@ nmap <silent> <leader>c :VimuxCloseRunner<CR>
 "" Colors and Theme
 ""
 syntax enable
+set background=dark
 colorscheme cmar
-
-let &t_SI = "\<Esc>]50;CursorShape=1\x7" " works in iterm2
-let &t_EI = "\<Esc>]50;CursorShape=0\x7" " works in iterm2
 
 set laststatus=2 "always display status bar
 set statusline=%<%f\ %{fugitive#statusline()}\ %h%m%r%=%-14.(%l,%c%V%)\ %P\ %y
@@ -114,6 +116,11 @@ map <leader>0 :tablast<CR>
 nnoremap <leader>ev :vsplit $MYVIMRC<CR>
 noremap <leader>sv :source $MYVIMRC<CR>
 nnoremap <leader>ec :vsplit g:colors_name<CR>
+
+nnoremap [q :cprevious<CR>
+nnoremap ]q :cnext<CR>
+nnoremap [Q :cfirst<CR>
+nnoremap ]Q :clast<CR>
 
 map <d-k> \\\
 imap <d-k> \\\
