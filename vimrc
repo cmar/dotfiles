@@ -56,7 +56,7 @@ nmap <silent> <leader>l :VimuxRunLastCommand<CR>
 nmap <silent> <leader>c :VimuxCloseRunner<CR>
 
 if executable("ag")
-  set grepprg=ag\ --nogroup\ --nocolor
+  set grepprg=ag\ --nogroup\ --nocolor\ --smart-case
 endif
 
 "VimuxCloseRunner let g:turbux_command_prefix = 'bundle exec'
