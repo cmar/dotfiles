@@ -25,8 +25,8 @@ set smartcase   " ... un$$ss they contain at least one capital letter
 
 set listchars=tab:▸\ ,trail:·,eol:¬
 
-set backupdir=~/.vim/_backup/    " where to put backup files.
-set directory=~/.vim/_swap/      " where to put swap files.
+set backupdir=~/.tmp
+set directory=~/.tmp
 
 runtime macros/matchit.vim
 
@@ -37,6 +37,7 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 Bundle 'gmarik/vundle'
 Bundle 'kien/ctrlp.vim'
+Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-commentary'
 Bundle 'tpope/vim-fugitive'
 Bundle 'kchmck/vim-coffee-script'
@@ -45,18 +46,24 @@ Bundle 'kchmck/vim-coffee-script'
 Bundle 'benmills/vimux'
 Bundle 'jgdavey/vim-turbux'
 
-Bundle 'tomasr/molokai'
+Bundle 'sunaku/vim-ruby-minitest'
+Bundle 'godlygeek/tabular'
+Bundle 'tpope/vim-surround'
+" Bundle 'tomasr/molokai'
 Bundle 'altercation/vim-colors-solarized'
 
 filetype plugin indent on
 
 nmap <silent> <leader>t <Plug>SendTestToTmux
-nmap <silent> <leader>s <Plug>SendFocusedTestToTmux
+" nmap <silent> <leader>s :w\|:call VimuxRunCommand('m ' . expand('%') . ':' . line('.'))<CR>
 nmap <silent> <leader>l :VimuxRunLastCommand<CR>
 nmap <silent> <leader>c :VimuxCloseRunner<CR>
 
 if executable("ag")
-  set grepprg=ag\ --nogroup\ --nocolor\ --smart-case
+  set grepprg=ag\ --nogroup\ --nocolor\ --column\ --smart-case
+  set grepformat=%f:%l:%c:%m
+
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
 
 "VimuxCloseRunner let g:turbux_command_prefix = 'bundle exec'
@@ -78,7 +85,8 @@ endif
 ""
 syntax enable
 set background=dark
-colorscheme cmar
+colorscheme solarized
+hi Visual ctermfg=10 ctermbg=15
 
 set laststatus=2 "always display status bar
 set statusline=%<%f\ %{fugitive#statusline()}\ %h%m%r%=%-14.(%l,%c%V%)\ %P\ %y
@@ -203,3 +211,5 @@ map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
       \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
       \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
+" macros
+"t   0f"vf"xjg$a, ^[pkddjdd
